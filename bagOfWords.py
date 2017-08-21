@@ -29,6 +29,7 @@ def getOutput(text1,text2):
 def readingFromFile(filename):
     s = ""
     file = open(filename, "r") 
+    print file.readlines()
     s = s + str(file.readlines())
     return s
 
@@ -38,4 +39,8 @@ print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not
 #Calling on files
 t1 = readingFromFile("File1.txt")
 t2 = readingFromFile("File2.txt")
+print "Similarity is " + str(getOutput(t1,t2))
+
+t1 = readingFromFile("verne.txt")
+t2 = readingFromFile("lewis.txt")
 print "Similarity is " + str(getOutput(t1,t2))
