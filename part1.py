@@ -1,5 +1,12 @@
 import math
 
+__author__ = "Neeraj Sharma"
+__copyright__ = "Copyright 2007, The CSPP1 Project"
+__license__ = "MSIT"
+__version__ = "1.0.1"
+__maintainer__ = "Neeraj Sharma"
+__email__ = "neeraj.sharma15@msitprogram.net"
+__status__ = "Production"
 class BagOfWords():
 	dict1, dict2, bag = {}, {}, []
 	def __init__(self, file1, file2):
