@@ -26,4 +26,15 @@ def getOutput(text1,text2):
     # print(vector2)
     return arcoss(getCosine(vector1, vector2))
 
+def readingFromFile():
+    s = ""
+    file = open("P14.py", "r") 
+    s = s + str(file.readlines())
+    return s
+
+#Calling on raw strings
 print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not to be'))
+
+#Calling on files
+
+print "Similarity is " + str(getOutput(readingFromFile("File1.txt"), readingFromFile("File2.txt") )
