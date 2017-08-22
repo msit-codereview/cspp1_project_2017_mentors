@@ -3,9 +3,9 @@ import math
 from collections import Counter
 import glob, os
 
-def openFilesInDirectory():
+def openFilesInDirectory(folder):
     listOfFiles = []
-    os.chdir("/mydir")
+    os.chdir(folder)
     for file in glob.glob("*.txt"):
         listOfFiles.append(file)
     return listOfFiles
@@ -45,9 +45,20 @@ def readingFromFile(filename):
     return s
 
 #Calling on raw strings
-print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not to be'))
+# print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not to be'))
 
 #Calling on files
-t1 = readingFromFile("File1.txt")
-t2 = readingFromFile("File2.txt")
-print "Similarity is " + str(getOutput(t1,t2))
+# t1 = readingFromFile("File1.txt")
+# t2 = readingFromFile("File2.txt")
+# print "Similarity is " + str(getOutput(t1,t2))
+
+#Reading from folder.
+l = []
+folder = "Files"
+# print(openFilesInDirectory(folder))
+l = openFilesInDirectory(folder)
+for i in range(len(l)):
+    for j in range(i,len(l)):
+        t1 = readingFromFile(str(l[i]))
+        t2 = readingFromFile(str(l[j]))
+        print "Similarity is " + str(l[i]) + " and " + str(l[j]) + " is " + str(getOutput(t1,t2))
