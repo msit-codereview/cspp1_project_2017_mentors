@@ -1,6 +1,14 @@
 import re
 import math
 from collections import Counter
+import glob, os
+
+def openFilesInDirectory():
+    listOfFiles = []
+    os.chdir("/mydir")
+    for file in glob.glob("*.txt"):
+        listOfFiles.append(file)
+    return listOfFiles
 
 def arcoss(angle) :
     return math.acos(angle)
@@ -17,6 +25,9 @@ def getCosine(vec1, vec2):
     sum1 = sum([vec1[x]**2 for x in vec1.keys()])
     sum2 = sum([vec2[x]**2 for x in vec2.keys()])
     denominator = math.sqrt(sum1) * math.sqrt(sum2)
+    # print numerator
+    # print denominator
+    # print numerator / denominator
     return numerator / denominator
 
 def getOutput(text1,text2):
@@ -24,12 +35,12 @@ def getOutput(text1,text2):
     vector2 = textToVector(text2.lower())
     # print(vector1)
     # print(vector2)
-    return arcoss(getCosine(vector1, vector2))
+    # return arcoss(getCosine(vector1, vector2))
+    return getCosine(vector1, vector2)
 
 def readingFromFile(filename):
     s = ""
     file = open(filename, "r") 
-    print file.readlines()
     s = s + str(file.readlines())
     return s
 
@@ -39,8 +50,4 @@ print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not
 #Calling on files
 t1 = readingFromFile("File1.txt")
 t2 = readingFromFile("File2.txt")
-print "Similarity is " + str(getOutput(t1,t2))
-
-t1 = readingFromFile("verne.txt")
-t2 = readingFromFile("lewis.txt")
 print "Similarity is " + str(getOutput(t1,t2))
