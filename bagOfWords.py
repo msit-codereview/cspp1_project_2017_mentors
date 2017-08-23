@@ -28,7 +28,7 @@ def getCosine(vec1, vec2):
     # print numerator
     # print denominator
     # print numerator / denominator
-    return numerator / denominator
+    return int( (numerator / denominator)*100 )
 
 def getOutput(text1,text2):
     vector1 = textToVector(text1.lower())
@@ -44,6 +44,11 @@ def readingFromFile(filename):
     s = s + str(file.readlines())
     return s
 
+def printingMatrix(t1,t2):
+    for i in range(len(l)):
+        for j in range(len(l)):
+            print '{:4}'.format(str(getOutput(t1,t2))),
+        print()
 #Calling on raw strings
 # print "Similarity is " + str(getOutput('Doubt truth to be a liar', 'To be or not to be'))
 
@@ -55,10 +60,15 @@ def readingFromFile(filename):
 #Reading from folder.
 l = []
 folder = "Files"
-# print(openFilesInDirectory(folder))
 l = openFilesInDirectory(folder)
 for i in range(len(l)):
-    for j in range(i,len(l)):
+    for j in range(i+1,len(l)):
         t1 = readingFromFile(str(l[i]))
         t2 = readingFromFile(str(l[j]))
-        print "Similarity is " + str(l[i]) + " and " + str(l[j]) + " is " + str(getOutput(t1,t2))
+        # printingMatrix(t1,t2)
+        # print "Similarity between \'" + str(l[i]) + "\' and \'" + str(l[j]) + "\' is " + str(getOutput(t1,t2)) + "%"
+
+# for i in range(len(l)):
+#     for j in range(len(l)):
+#         print '{:4}'.format(l[i][j]),
+#     print
