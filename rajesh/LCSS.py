@@ -38,7 +38,10 @@ class Longest_Common_Substring():
             for val in lcslst:
                 if(len(val) > sumall):
                     sumall = len(val)
-        simpc = sumall/(len(s1)+len(s2))
+        simpc = (sumall*2)/(len(s1)+len(s2))
+        for val in lcslst:
+            print(val)
+        print(simpc)
         return simpc
 
     def files_comparison(self,all_files,ilist):
@@ -61,6 +64,8 @@ class Longest_Common_Substring():
                 j = ilist[filetwo]
                 #print(i,j," ONE")
                 temp = plmatrix[i]
+                s1 = ""
+                s2 = ""
                 if(temp[j] == 0 and fileone != filetwo):
                     copy_filetwo = directory+"/" + filetwo
                     two_file = open(copy_filetwo,"r")
