@@ -2,29 +2,45 @@
 Created on Aug 17, 2017
 
 @author: Rajesh Kumar
-Bag Of Words.
 '''
+
 import os
 import collections
 
-class Bag_Of_Words:
-    def calculate_percentage(self,dtall,dt1,dt2):
-        lt = dtall.keys()
-        sumall = 0
-        for val in lt:
-            if(val in dt1 and val in dt2):
-                sumall = sumall + (dt1[val] * dt2[val])
-        sum1,sum2 = 0,0
-        dtval1 = dt1.values()
-        dtval2 = dt2.values()
-        for val in dtval1:
-            sum1 +=  val**2
-        for val in dtval2:
-            sum2 +=  val**2
-        #print("Complete: ",sumall,"\nFirst: ",sum1,"\nSecond: ",sum2)
-        simpc = sumall/((sum1**0.5)*(sum2**0.5))
-        return simpc
+class Longest_Common_Substring():
+    def lcs(self,S,T):
+        m = len(S)
+        n = len(T)
+        counter = [[0]*(n+1) for x in range(m+1)]
+        longest = 0
+        lcs_set = set()
+        for i in range(m):
+            for j in range(n):
+                if S[i] == T[j]:
+                    c = counter[i][j] + 1
+                    counter[i+1][j+1] = c
+                    if c > longest:
+                        lcs_set = set()
+                        longest = c
+                        lcs_set.add(S[i-c+1:i+1])
+                    elif c == longest:
+                        lcs_set.add(S[i-c+1:i+1])
+        #print(lcs_set)
+        return lcs_set
     
+    def calculate_percentage(self,s1,s2):
+        lcslst = self.lcs(s1,s2)
+        sumall = 0
+        if(len(lcslst) == 1):
+            for val in lcslst:
+                sumall = len(val)
+        else:
+            for val in lcslst:
+                if(len(val) > sumall):
+                    sumall = len(val)
+        simpc = sumall/(len(s1)+len(s2))
+        return simpc
+
     def files_comparison(self,all_files,ilist):
         plmatrix = [[]]
         for i in all_files:
@@ -57,13 +73,10 @@ class Bag_Of_Words:
                         lows1 = lows1 + s1[i].lower()
                     for i in range(len(s2)):
                         lows2 = lows2 + s2[i].lower()
-                        
-                    lst1 = lows1.split(" ")
-                    lst2 = lows2.split(" ")
-                    dt1 = collections.Counter(lst1) # Converting list to dictionary
-                    dt2 = collections.Counter(lst2) # Converting list to dictionary
-                    dtall = collections.Counter(lst1 + lst2)# Converting list to dictionary
-                    percentage = int((self.calculate_percentage(dtall,dt1,dt2))*100) #round(op*100) # Multiplying for 100 %
+                    s1 = lows1
+                    s2 = lows2
+
+                    percentage = int((self.calculate_percentage(s1,s2))*100) #round(op*100) # Multiplying for 100 %
                     #print("Percentage match is: ",fileone,filetwo,percentage)
                     if(fileone == filetwo):
                         percentage = None
@@ -82,7 +95,7 @@ class Bag_Of_Words:
             one_file.close()
         return plmatrix
 
-bog = Bag_Of_Words() #creating class object
+
 directory = "Check_Files" # directory name which has text files for chacking pattern matching
 all_files = os.listdir(directory) # getting all file names present in directory into list
 #print(all_files)
@@ -92,12 +105,11 @@ for sf in all_files:
     ilist[sf] = val # adding {key:value} into dictionary
     val += 1
 #print(ilist)
-plmatrix = bog.files_comparison(all_files,ilist) # calling file comparison method
-#for i in plmatrix:
- #   print(i)
-indexvals = ilist.values()
+LCS = Longest_Common_Substring() # creating object
+plmatrix = LCS.files_comparison(all_files,ilist) # calling file comparison method
+
 indexkeys = ilist.keys()
-print("Bag Of Words Module.\n")
+print("Longest Common Stubstring Model.\n")
 print("MATRIX PATTERN: Which FILE is compared with which FILE.") # Printing which files is compared
 print("\n             ",end="")
 for i in range(len(all_files)):
@@ -113,4 +125,6 @@ for i in range(len(all_files)):
 print("\nFile Comparisons Percentages Matrix: ")
 for one in plmatrix:
     print(one) # printing plagarism percentages
-    
+
+
+
